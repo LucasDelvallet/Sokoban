@@ -8,22 +8,22 @@ import gameframework.game.GameEntity;
 import gameframework.motion.GameMovable;
 import gameframework.motion.GameMovableDriverDefaultImpl;
 import gameframework.motion.MoveStrategyDefaultImpl;
-import gameframework.motion.MoveStrategyKeyboard;
 import gameframework.motion.blocking.MoveBlocker;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Crate extends GameMovable implements Drawable, GameEntity, MoveBlocker{
+public class Crate extends GameMovable implements Drawable, GameEntity,
+		MoveBlocker {
 
 	protected DrawableImage image;
 	protected GameCanvas canvas;
 	int x;
 	int y;
-	
+
 	public Crate(GameData data, int x, int y) {
 		super();
-		
+
 		MoveStrategyDefaultImpl keyboard = new MoveStrategyDefaultImpl();
 		GameMovableDriverDefaultImpl moveDriver = new GameMovableDriverDefaultImpl();
 		moveDriver.setStrategy(keyboard);
