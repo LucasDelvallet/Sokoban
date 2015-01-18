@@ -9,8 +9,11 @@ public class Player extends SokobanMovable implements Overlappable {
 
 	public Player(GameData data, int x, int y) {
 		//super(data, x, y, "/images/man1.gif", new SpeedVector(new Point(0,0), 1)); ///!\ A décommentariser après la màj du framework
-		super(data, x, y, "/images/man1.gif"); ///!\ A retirer après màj du framework
+		super(data, x, y, "/images/man1.gif"); ///!\ A retirer après màj du framework7
+		
 		MoveStrategyKeyboard keyboard = new MoveStrategyKeyboard(speedVector);
+		keyboard.getSpeedVector().setSpeed(data.getConfiguration().getSpriteSize());
+		
 		GameMovableDriverDefaultImpl moveDriver = new GameMovableDriverDefaultImpl();
 		moveDriver.setStrategy(keyboard);
 		moveDriver.setmoveBlockerChecker(data.getMoveBlockerChecker());
