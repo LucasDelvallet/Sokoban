@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import gameframework.drawing.Drawable;
 import gameframework.drawing.DrawableImage;
@@ -35,9 +35,8 @@ public abstract class SokobanMovable extends GameMovable implements Drawable, Ga
 
 	@Override
 	public Rectangle getBoundingBox() {
-		Rectangle rectangle = new Rectangle(image.getWidth(), image.getHeight());
-		rectangle.setLocation(position.x, position.y);
-		return rectangle;
+		return new Rectangle(position.x, position.y, image.getWidth(),
+				image.getHeight());
 	}
 	
 	@Override

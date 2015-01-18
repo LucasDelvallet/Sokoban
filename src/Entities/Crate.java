@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import gameframework.drawing.DrawableImage;
 import gameframework.drawing.GameCanvas;

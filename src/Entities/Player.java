@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import gameframework.game.GameData;
 import gameframework.motion.GameMovableDriverDefaultImpl;
@@ -21,6 +21,7 @@ public class Player extends SokobanMovable implements Overlappable {
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
+		
 	}
 
 }
