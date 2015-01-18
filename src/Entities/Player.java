@@ -1,49 +1,22 @@
 package Entities;
 
-import gameframework.drawing.Drawable;
-import gameframework.drawing.DrawableImage;
-import gameframework.drawing.GameCanvas;
 import gameframework.game.GameData;
-import gameframework.game.GameEntity;
-import gameframework.motion.GameMovable;
 import gameframework.motion.GameMovableDriverDefaultImpl;
 import gameframework.motion.MoveStrategyKeyboard;
 import gameframework.motion.overlapping.Overlappable;
 
-import java.awt.Graphics;
-import java.awt.Rectangle;
-
-public class Player extends GameMovable implements Drawable, GameEntity, Overlappable {
-
-	protected DrawableImage image;
-	protected GameCanvas canvas;
+public class Player extends SokobanMovable implements Overlappable {
 
 	public Player(GameData data, int x, int y) {
-		super();
-		MoveStrategyKeyboard keyboard = new MoveStrategyKeyboard();
+		//super(data, x, y, "/images/man1.gif", new SpeedVector(new Point(0,0), 1)); ///!\ A décommentariser après la màj du framework
+		super(data, x, y, "/images/man1.gif"); ///!\ A retirer après màj du framework
+		MoveStrategyKeyboard keyboard = new MoveStrategyKeyboard(speedVector);
 		GameMovableDriverDefaultImpl moveDriver = new GameMovableDriverDefaultImpl();
 		moveDriver.setStrategy(keyboard);
 		moveDriver.setmoveBlockerChecker(data.getMoveBlockerChecker());
 		setDriver(moveDriver);
 
-		position.x = x;
-		position.y = y;
-		this.canvas = data.getCanvas();
-		image = new DrawableImage("/images/man1.gif", canvas);
 		this.canvas.addKeyListener(keyboard);
-
-	}
-
-	@Override
-	public void draw(Graphics g) {
-		canvas.drawImage(g, image.getImage(), position.x, position.y);
-	}
-
-	@Override
-	public Rectangle getBoundingBox() {
-		Rectangle rectangle = new Rectangle(image.getWidth() - 5, image.getHeight() - 5);
-		rectangle.setLocation(position.x, position.y);
-		return rectangle;
 	}
 
 	@Override

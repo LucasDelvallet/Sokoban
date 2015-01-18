@@ -24,7 +24,7 @@ public class Wall implements Drawable, GameEntity, MoveBlocker {
 		width = image.getWidth();
 		height = image.getHeight();
 		this.x = x*width;
-		this.y = y*height;
+		this.y = y*height;		
 	}
 
 	@Override
