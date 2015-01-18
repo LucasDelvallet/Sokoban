@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import gameframework.drawing.Drawable;
 import gameframework.drawing.DrawableImage;
@@ -15,14 +15,15 @@ import java.awt.Rectangle;
 import motion.CrateGameMovableDriver;
 import motion.MoveStrategyCrate;
 
-public class Crate extends GameMovable implements Drawable, GameEntity, Overlappable{
+public class Crate extends GameMovable implements Drawable, GameEntity,
+		Overlappable {
 
 	protected DrawableImage image;
 	protected GameCanvas canvas;
-	
+
 	public Crate(GameData data, int x, int y) {
 		super();
-		
+
 		MoveStrategyCrate moveStrategy = new MoveStrategyCrate();
 		GameMovableDriverDefaultImpl moveDriver = new CrateGameMovableDriver();
 		moveDriver.setStrategy(moveStrategy);
@@ -43,9 +44,8 @@ public class Crate extends GameMovable implements Drawable, GameEntity, Overlapp
 
 	@Override
 	public Rectangle getBoundingBox() {
-		Rectangle rectangle = new Rectangle(image.getWidth(), image.getHeight());
-		rectangle.setLocation(position.x, position.y);
-		return rectangle;
+		return new Rectangle(position.x, position.y, image.getWidth(),
+				image.getHeight());
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package Entities;
+package entities;
 
 import gameframework.drawing.Drawable;
 import gameframework.drawing.DrawableImage;
@@ -13,7 +13,8 @@ import gameframework.motion.overlapping.Overlappable;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Player extends GameMovable implements Drawable, GameEntity, Overlappable {
+public class Player extends GameMovable implements Drawable, GameEntity,
+		Overlappable {
 
 	protected DrawableImage image;
 	protected GameCanvas canvas;
@@ -21,6 +22,7 @@ public class Player extends GameMovable implements Drawable, GameEntity, Overlap
 	public Player(GameData data, int x, int y) {
 		super();
 		MoveStrategyKeyboard keyboard = new MoveStrategyKeyboard();
+		keyboard.getSpeedVector().setSpeed(data.getConfiguration().getSpriteSize());
 		GameMovableDriverDefaultImpl moveDriver = new GameMovableDriverDefaultImpl();
 		moveDriver.setStrategy(keyboard);
 		moveDriver.setmoveBlockerChecker(data.getMoveBlockerChecker());
@@ -41,9 +43,8 @@ public class Player extends GameMovable implements Drawable, GameEntity, Overlap
 
 	@Override
 	public Rectangle getBoundingBox() {
-		Rectangle rectangle = new Rectangle(image.getWidth() - 5, image.getHeight() - 5);
-		rectangle.setLocation(position.x, position.y);
-		return rectangle;
+		return new Rectangle(position.x, position.y, image.getWidth(),
+				image.getHeight());
 	}
 
 	@Override
