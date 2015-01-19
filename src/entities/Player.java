@@ -1,54 +1,61 @@
 package entities;
 
-import gameframework.drawing.Drawable;
-import gameframework.drawing.DrawableImage;
-import gameframework.drawing.GameCanvas;
+import gameframework.drawing.SpriteManagerDefaultImpl;
 import gameframework.game.GameData;
-import gameframework.game.GameEntity;
-import gameframework.motion.GameMovable;
 import gameframework.motion.GameMovableDriverDefaultImpl;
 import gameframework.motion.MoveStrategyKeyboard;
 import gameframework.motion.overlapping.Overlappable;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Point;
 
-public class Player extends GameMovable implements Drawable, GameEntity,
-		Overlappable {
+public class Player extends SokobanMovable implements Overlappable {
+	
+	protected SpriteManagerDefaultImpl spriteManager;
 
-	protected DrawableImage image;
-	protected GameCanvas canvas;
-
-	public Player(GameData data, int x, int y) {
-		super();
-		MoveStrategyKeyboard keyboard = new MoveStrategyKeyboard();
+	public Player(GameData data, int x, int y) {		
+		super(data, x, y, "/images/player.gif");
+		
+		MoveStrategyKeyboard keyboard = new MoveStrategyKeyboard(false);
 		keyboard.getSpeedVector().setSpeed(data.getConfiguration().getSpriteSize());
 		GameMovableDriverDefaultImpl moveDriver = new GameMovableDriverDefaultImpl();
 		moveDriver.setStrategy(keyboard);
 		moveDriver.setmoveBlockerChecker(data.getMoveBlockerChecker());
 		setDriver(moveDriver);
 
-		position.x = x;
-		position.y = y;
-		this.canvas = data.getCanvas();
-		image = new DrawableImage("/images/man1.gif", canvas);
 		this.canvas.addKeyListener(keyboard);
-
-	}
-
-	@Override
-	public void draw(Graphics g) {
-		canvas.drawImage(g, image.getImage(), position.x, position.y);
-	}
-
-	@Override
-	public Rectangle getBoundingBox() {
-		return new Rectangle(position.x, position.y, image.getWidth(),
-				image.getHeight());
+		
+		spriteManager = new SpriteManagerDefaultImpl(image, 32, 6);
+		spriteManager.setTypes("down", "right", "left", "up");
 	}
 
 	@Override
 	public void oneStepMoveAddedBehavior() {
+		
+		Point p = speedVector.getDirection();
+		
+		//Down
+		if(p.x == 0 && p.y > 0)
+			spriteManager.setType("down");
+		
+		//Up
+		if(p.x == 0 && p.y < 0)
+			spriteManager.setType("up");
+		
+		//Left
+		if(p.x < 0 && p.y == 0)
+			spriteManager.setType("left");
+		
+		//Right
+		if(p.x > 0 && p.y == 0)
+			spriteManager.setType("right");
+		
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		spriteManager.draw(g, position);
+		spriteManager.increment();
 	}
 
 }
